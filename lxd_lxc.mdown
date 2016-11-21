@@ -1,0 +1,62 @@
+*** Code Mardown ***
+*********************
+
+linux 2
+======
+
+Virtualisation légère
+---------------------
+
+la virtualisation a un coût, notamment au niveau de l'hyperviseur* et des systèmes d'exploitation invités, qui requièrent chacun de la mémoire et de coûteuses licences. Il en résulte une augmentation de la taille de chaque machine virtuelle, ce qui limite le nombre de VM qu'un serveur peut héberger.  
+Virtualiser les applications sans trop alourdir le système.  
+introduction de plateformes ouvertes, telles que Docker, qui a remis sous les feux de la rampe la conteneurisation et son potentiel en matière d'applications distribuées évolutives.  
+Docker est un gestionnaire de conteneurs initialement basé sur LXC.  
+
+
+####la virtualisation par isolation
+mettre en place des contextes permettant de redéfinir ce que voit le conteneur. C'est typiquement ce que fait chroot qui cache la racine réelle du serveur pur ne montrer aux processus enfant qu'une partie de l'arborescence. C'est aussi ce que font de manière beaucoup plus complète OpenVZ, VServer ou encore les zones d'OpenSolaris. = solution avec LXD ou LXD  
+
+####LXC
+Ensemble bien connu d'outils, modèles, bibliothèque et connecteurs pour différents langages  
+XC est bas niveau, très flexible et couvre à peu près toutes les technologies de confinement supportées par le noyau.  
+système de virtualisation, utilisant l'isolation comme méthode de cloisonnement au niveau du système d'exploitation.  
+utilisé pour faire fonctionner des environnements Linux isolés les uns des autres dans des conteneurs* partageant le même noyau et une plus ou moins grande partie du système hôte, éviter à un système de connaître les ressources utilisées par le système hôte ou un autre conteneur.   
+LXC repose sur les fonctionnalités des cgroups du noyau Linux  
+virtualisation au niveau du système d'exploitation  
+Permet d'exécuter plusieurs instances Linux isolées, baptisées « conteneurs Linux », ou LXC (LinuX Containers).
+
+####LXC et chroot
+
+( jeu de nouvelles options dans le kernel qui ont la particularité d'être intégré en mainstream. Cela comprend un ensemble d'isolateurs (ou namespace) et cgroup (pour control group file system) permettant de contrôler de manière unifiée un jeu de processus et leurs enfants. Les isolateurs ajoutés sont nombreux et fonctionnent comme chroot pour la racine :
+UTS namespace qui permet d'avoir pour chaque conteneur son propre hostname/domainame distinct de celui de l'hôte.  
+IPC Namespace qui permet d'avoir pour chaque conteneur son jeu privé de fonctions sem, shm, msg, etc.  
+User Namespace qui permet d'avoir par conteneur des
+utilisateurs de l'hôte distinct (y compris root !!), même s'ils partagent le même UID/GID.  
+PID Namespace - un apport énorme sur chroot, permettant au conteneur de disposer de sa propre liste de processus. Les processus host ne sont donc plus visible du conteneur.  
+Network namespace - la aussi une avancée très importante permettant au conteneur de disposer de ses propres interfaces réseaux (y compris localhost!).)  
+L'ensemble de ces fonctionnalités (namespaces et cgroup) permet de créer relativement facilement un super-chroot beaucoup plus isolant que la version d'origine. C'est ce que cherche à obtenir le projet Linux Containers. Ce dernier fournit une batterie de nouvelles commandes qui à partir d'une simple racine (identique à celle utilisée pour un chroot), permettent de créer, démarrer, arrêter ou encore monitorer un conteneur.  
+
+
+
+####LXD
+LXD est la nouvelle expérience LXC avec une seule commande intuitive pour contrôler tous vos conteneurs. Les conteneurs sont gérés par le réseau de façon complètement transparente grâce à une interface REST. Il marche aussi à grande échelle, s'intégrant avec OpenStack.  
+Début novembre 2014  
+LXD est un projet open source conçu pour fournir un ensemble d'outils de gestion des conteneurs Linux. il est sous licence Apache 2 fondée par canonical.  
+LXD est actuellement composé de trois pièces: un deamon*, un client de ligne de commande et d'un plug-in OpenStack Nova.  
+Le client de ligne de commande se fonde sur le projet LXC existant (conteneur Linux), offrant des capacités de gestion de niveau inférieur pour l'ensemble de ses conteneurs.  
+Il peut se connecter à plusieurs hôtes de conteneurs pour fournir un aperçu de tous les conteneurs résidant sur un réseau, le plug-in de OpenStack* permet des fonctions de gestion de niveau supérieur en permettant aux administrateurs de gérer les conteneurs comme ils le feraient VMs dans un environnement OpenStack.  
+
+
+*defenition*
+Hyperviseur : plate-forme de virtualisation qui permet à plusieurs systèmes d'exploitation de travailler sur une même machine physique en même temps.  
+
+Le conteneur apporte une virtualisation de l'environnement d'exécution (processeur, mémoire vive, réseau, système de fichier…) et non pas de la machine. Pour cette raison, on parle de « conteneur » et non de machine virtuelle.  
+
+Le deamon exporte une API REST localement et permet également aux administrateurs de gérer les conteneurs sur un réseau.  
+
+OpenStack = 
+déployer des infrastructures de cloud computing (infrastructure en tant que service). La technologie possède une architecture modulaire composée de plusieurs projets corrélés (Nova, Swift, Glance...) qui permettent de contrôler les différentes ressources des machines virtuelles telles que la puissance de calcul, le stockage ou encore le réseau inhérents au centre de données sollicité.  
+
+*Les plateformes de conteneurisation d'applications, telles que Docker, ne remplacent pas les conteneurs Linux. L'idée consiste à utiliser LXC comme base, puis à ajouter des capacités de niveau supérieur.  Docker autorise la portabilité entre machines (qui exécutent aussi Docker) et permet ainsi à une application et à ses composants d'exister en tant qu'objet mobile unique.  LXC seul permet la mobilité, mais la build est liée à la configuration du système. Donc la déplacer sur une autre machine peut introduire des différences susceptibles d'empêcher le conteneur de l'application de s'exécuter à l'identique (voire de s'exécuter tout court).*
+
+source : http://artisan.karma-lab.net/conteneurs-linux  
