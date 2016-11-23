@@ -1,0 +1,64 @@
+#II/Pourquoi la virtualisation légère ? 
+**********************************************
+
+Les avantages    
+=============    
+
+La virtualisation légère comporte plusieurs avantage, un des premier, et la principale difference est la virtualisation du systeme d'exploitation.  
+La virtualisation lourde virtualise le systeme d'exploitation (l'OS) tandit que la virtualisation légère ne fonctionne qu'en système de contenneur, qui ne contienne qu'au maximum que les application/librairie.  
+
+*Pour illustrer c'est propo voici deux images*  
+
+![Virtualisation légère](http://blog.nicolargo.com/wp-content/uploads/2014/05/S%C3%A9lection_180.png "légère")
+*virtualisation légère*  
+
+[virtualisation lourde](http://images.google.fr/imgres?imgurl=http%3A%2F%2Fcdn-scraplogo.pearltrees.com%2F0f%2Fca%2F0fca6a2aa3952b4032924254df876f41-pearlsquare.jpg%3Fv%3D2&imgrefurl=http%3A%2F%2Fwww.pearltrees.com%2Ft%2Fvirtualisation%2Fid15465957&h=250&w=250&tbnid=xG73NcOdnc9sCM%3A&vet=1&docid=4n5MHIaKDuEnCM&itg=1&ei=vuE1WLOjGoL-ad-5o6gI&tbm=isch&client=ubuntu&iact=rc&uact=3&dur=258&page=0&start=0&ndsp=40&ved=0ahUKEwiz-s_ewr_QAhUCfxoKHd_cCIUQMwgkKAgwCA&bih=985&biw=1855 "lourde")
+*virtualisation lourde*
+
+Le système hôte est ainsi géré directement par Docker.
+  
+
+####Principe et ressource  
+
+La virtualisation traditionelle (dite lourde) permet via un hyperviseur, de simuler une ou plusieur machines physique sous forme de machine virtuel  (VM).  C'est VM intègre elles-même un OS sur laquel les applications qu'elle continnent sont executé.  
+A l'inverse un conteneur fait directement appel à l'OS de sa machine hôte pour réaliser ses appel système et executé selement les applications.  
+Le rôle de l'hyperviseur est alors assuré par un moteur de conteneurisation, tel que Docker, qui s'installe par-dessus le système d'exploitation hôte.  
+  
+Comme la virtualisation légère ne virtualisant pas le système d'exploitation, ceci permet de lancer les conteneur de manière très rapide car il n'y a pas de phase de demarrage ni d'initialisation de cette couche.   
+Le temps de lancement d'un conteneur est alors égal au temps de lancement des applications qu'il contient. 
+Grâce à ceci la taille d'un conteneur est relativement petite.    
+Un pc n'a pas réelement de limite de conteneur qui peut tourner. la limite proviendra de l'occupation mémoire/CPU/réseau de nos application.  
+  
+  
+####La portabilité  
+  
+Un autre avantage de la virtualisation légère est sa portabilité, grace à sa souplesse et légèreter car il n'embarque pas d'OS, il est totalement posssible de concevoir un conteneur sur son pc portable puis de le deployer sur son infrastructeur de production physique ou virtuelle.  
+Par exemple une machine virtuelle realisé avec la ve=irtualisation lourde pourra péser plusieur Go, alors qu'un container nu représentera seulement quelque Mo.  
+Un serveur donné accueillera de 10 à 100 fois plus d'instances de conteneur que d'instances d'application sur VM.  
+  
+    
+La portabilité de ces container peut se faire grâce a des clouds, seulement il faudra que les clouds en présence soient optimisés pour les accueillir. Amazone Web Services,Microsoft Azure,  Google Compute, OVH ou encore DigitalOcean font partie des clouds pouvant recevoir ces container.  
+Cela permet de basculer les container d'un environnement de développement ou de test à un un environnement de production facilement, ce qui n'est pas le cas des VM.  
+  
+  
+####Pour les développeur  
+  
+Un autre avantage est pour les développeur, du fait de la disparition de l'OS intermédiaire des VM, ils bénéficieront aussi mécaniquement d'une pile applicative plus proche de celle de l'environnement de production. Docker pourra permettre dans le même temps de concevoir une architecture de test plus agile, chaque container de test pouvant intégrer une brique de l'application.  
+  
+IBM a réalisé un un comparatif de performance entre Docker et KVM((Kernel-based Virtual Machine) qui est un hyperviseur.  
+Il en conclu que Docker égale ou excède les performances de cette technologie de virtualisation open source - et ce dans tous les cas testés dans le cadre du comparatif. Pour Big Blue, la performance des containers Docker se rapproche même de celle des serveurs machines nus. En éliminant la couche de virtualisation, consommatrice en ressources machines, Docker permettrait de réduire la consommation de RAM de 4 à 30 fois. Ce qui contribuait à optimiser l'utilisation des serveurs, et par conséquent la consommation d'énergie - qui reste l'un des principaux postes de dépense des data centers.  
+  
+source :
+http://blog.nicolargo.com/2014/06/virtualisation-legere-docker.html  
+http://www.journaldunet.com/solutions/cloud-computing/1146290-cloud-pourquoi-docker-peut-tout-changer/  
+https://wooster.checkmy.ws/2014/06/virtualisation-open-source/  
+https://www.supinfo.com/articles/single/3568-conteneurs-docker-lxc  
+
+*léxique :*
+** KVM ** : « pour Virtual Machine Kernel-based » est une solution de virtualisation complète pour Linux sur du matériel x86 compatibles « Intel VT ou AMD-V ».   Il se compose d’un module de noyau chargeable, kvm.ko, qui fournit l’infrastructure de virtualisation de base et un module, kvm-intel.ko ou kvm-amd.ko, spécifique au processeur utilisé.  
+
+Chaque machine virtuelle dispose d’un matériel privé virtualisé: une carte réseau, disque, carte graphique, etc.  
+
+KVM est le de-facto standard sur Linux puisque présent dans les sources du noyau depuis la ligne 2.6.20.  
+  
+**Hyperviseur **: outil de virtualisation qui permet à plusieurs systèmes d'exploitation (OS) de fonctionner simultanément sur une même machine physique.
