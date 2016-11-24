@@ -50,7 +50,7 @@ ou encore depuis combien de temps il a été créer
 
 Si on ajoute l'option -a a notre commande, elle nous permet de voir tous les containers y compris ceux arrêtés.
 
-[google] (http://hpics.li/0293269 "link to ps -a picture")
+[ps-a] (http://www.hostingpics.net/viewer.php?id=525235Capturedu20161124191024.png "ps -a")
 
 
 Pour le moment on peut créer des bases de données dans notre container mariadb cependant lorsqu'on le stop et qu'on le redémarre les données qu'on avait ajouté ne sont plus présente à l'intérieur de celui-ci.
