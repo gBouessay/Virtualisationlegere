@@ -17,8 +17,10 @@ III-Chroot
 IV-Docker
 -
 
-Intro présentation rapide docker.
 
+Docker est une plateforme de virtualisation par container ou conteneur en français. Qui nous permet de créer de nouvelles machines qui vont contenir uniquement une ou plusieurs applications. Ainsi pour partager votre projet il vous suffira simplement de mettre en place le docker créer sur une autre machine pour y avoir accès de façon parfaitement indépendante.
+
+Ainsi la virtualisation par conteneur que Docker propose permet à un système Linux de contenir un ou plusieurs processus dans un environnement indépendant de l'hôte et des conteneurs entres eux. A l'inverse de la virtualisation par hyperviseur de type 2 tel que VMware ou VirtualBox qui pour chaque hôte invité va virtualiser un environnement complet.
 
 ###A)Container#
 
@@ -36,8 +38,6 @@ On peut aussi ajouter des options à notre commande run afin d'accéder à l'int
 
 Ainsi notre container est lancé et nous nous retrouvons comme connecté à l'intérieur de notre container.
 
-[google] (http://hpics.li/6d28b47 "link to run")
-
 
 On peut voir la liste des containers lancé via la commande :
 
@@ -49,8 +49,6 @@ l'image de notre container
 ou encore depuis combien de temps il a été créer
 
 Si on ajoute l'option -a a notre commande, elle nous permet de voir tous les containers y compris ceux arrêtés.
-
-[ps-a] (http://www.hostingpics.net/viewer.php?id=525235Capturedu20161124191024.png "ps -a")
 
 
 Pour le moment on peut créer des bases de données dans notre container mariadb cependant lorsqu'on le stop et qu'on le redémarre les données qu'on avait ajouté ne sont plus présente à l'intérieur de celui-ci.
@@ -83,9 +81,6 @@ Celà nous permet donc d'arrêter/supprimer nos containers mariadb tant que nous
 On peut aussi monter des nouveaux containers qui dépendent du volume d'autres containers déjà existant.
 
 Par exemple si on veut créer un autre container mariadb-bis en exécutant l'option --volumes-from mariabd on va monter les volumes de notre containers existant mariadb dans notre container mariadb-bis
-
-
-###C)Liaison#
 
 
 ###D)Sécurité#
