@@ -83,7 +83,7 @@ On peut aussi monter des nouveaux containers qui dépendent du volume d'autres c
 Par exemple si on veut créer un autre container mariadb-bis en exécutant l'option --volumes-from mariabd on va monter les volumes de notre containers existant mariadb dans notre container mariadb-bis
 
 
-###D)Sécurité#
+###C)Sécurité#
 
 ####1-Créer une partition séparée pour docker
 
