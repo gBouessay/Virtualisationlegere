@@ -24,18 +24,23 @@ Intro présentation rapide docker.
 
 
 Un container est une instance active d'une image. On lance un container afin d'y exécuter un ou plusieurs processus et ce avec la commande run.
+
 `docker run mariabd`
 
 Dans le cas précis on demande à Docker de lancer un container à partir de l'image de mariadb. Ici docker va donc chercher l'image mariadb sur l'hôte ou alors la télécharger automaniquement si elle n'y est pas présente. 
 
 
 On peut aussi ajouter des options à notre commande run afin d'accéder à l'intérieur du container :
+
 `docker run -ti mariadb /bin/bash`
 
 Ainsi notre container est lancé et nous nous retrouvons comme connecté à l'intérieur de notre container.
 
+[google] (http://hpics.li/6d28b47 "link to run")
+
 
 On peut voir la liste des containers lancé via la commande :
+
 `docker ps`
 
 Où on va retrouver plusieurs informations : 
@@ -44,6 +49,8 @@ l'image de notre container
 ou encore depuis combien de temps il a été créer
 
 Si on ajoute l'option -a a notre commande, elle nous permet de voir tous les containers y compris ceux arrêtés.
+
+[google] (http://hpics.li/0293269 "link to ps -a picture")
 
 
 Pour le moment on peut créer des bases de données dans notre container mariadb cependant lorsqu'on le stop et qu'on le redémarre les données qu'on avait ajouté ne sont plus présente à l'intérieur de celui-ci.
@@ -62,6 +69,7 @@ Les données restent stockées sur l'hôte même si le container vient à être 
 
 
 La gestion des volumes se fait avec l'option -v lors de l'éxécution des commandes : docker run et docker create. 
+
 `docker run --name mariadb --volume /var/lib/docker/mysql:/var/lib/mysql -d mariadb`
 
 On va créer ici le volume /var/lib/mysql dans le container où il sera accessible par défaut en lecture et écriture.
@@ -82,12 +90,12 @@ Par exemple si on veut créer un autre container mariadb-bis en exécutant l'opt
 
 ###D)Sécurité#
 
-####1-créer une partition séparée pour docker
+####1-Créer une partition séparée pour docker
 
 L'ensemble des données de docker sont stockées dans /var/lib/docker. C'est le répertoire par défaut que docker va utiliser pour stocker les images et les containers.
 Le problème est que ce répertoire est situé à a racine / et donc si Docker remplit ce répertoire, le répertoire racine le sera aussi. Ce qui rendra le système hôte inutilisable.
 
-****Solution :**** 
+***Solution :*** 
 Ce problème peut aussi se rencontrer lorsqu'on récupère une image mal intentionné qui va alors remplir la mémoire de notre hôte volontairement.
 Les solutions pour éviter ce problème sont donc de créer une partition physique séparée pour le répertoire /var/lib/docker dès l'installation de docker.
 Ou alors de créez une partion logique avec Logical Volume Manager. 
@@ -99,7 +107,7 @@ Ces solutions vont doncdéfinir un quota de mémoire alloué à vos containers e
 Par défaut la communication entre tous les containers est possible dans utiliser la fonction link. Ainsi comme dans le cas précédant une mauvaise image pourrait donc avoir accès à tout ce qui se passe sur le réseau docker de votre hôte.
 C'est une faille particulièrement dangereuse car la plupart du temps, il n'y a pas de connexion sécurisé entre les containers.
 
-****Solution : ****
+***Solution : ***
 Interdir le comportement par défaut. Ainsi seul les containers liés entre eux par la fonction link seront capable de communiquer entre eux.
 
 
@@ -107,7 +115,8 @@ Interdir le comportement par défaut. Ainsi seul les containers liés entre eux 
 
 Quand un container est lancé avec le mot clé -privileged. Docker va lui donner tous les droits, y compris celui de lancer de nouveaux container sur l'hôte.
 
-Donc si une image demande à être lancé avec l'opotion privileged il faut au préalable se demander pourquoi elle a besoin de ce droit et ce dont elle a besoin. Ainsi la bonne pratique est de lui accorder que les droits dont elle a besoin pour fonctionner et non pas tous comme il l'est demandé.
+***Solution :***
+Donc si une image demande à être lancé avec l'option privileged il faut au préalable se demander pourquoi elle a besoin de ce droit et ce dont elle a besoin. Ainsi la bonne pratique est de lui accorder que les droits dont elle a besoin pour fonctionner et non pas tous comme il l'est demandé.
 
 
 Sources
