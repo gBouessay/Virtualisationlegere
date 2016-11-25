@@ -8,9 +8,9 @@ I-Présentation
 ###B)Pourquoi la virtualisation légère#
 
 
-Les avantages  
-=============   
-  
+***Les Avantages*** 
+
+
   
 La virtualisation légère comporte plusieurs avantages, un des premiers, et la principale différence est la virtualisation du système d'exploitation.  
 La virtualisation lourde virtualise le système d'exploitation (l'OS) tandis que la virtualisation légère ne fonctionne qu'en système de conteneur, qui ne contienne qu'au maximum que les applications/librairie.  
@@ -176,7 +176,7 @@ Léxique
 
 C'est un système optimisé pour la virtualisation de serveur. Pour virtualiser des systèmes de type desktop, on peut lui préférer virtualbox. KVM semble en effet plus performant en consommation de processeur mais plus lent pour l'émulation du périphérique graphique.
 
-**Hyperviseur **: outil de virtualisation qui permet à plusieurs systèmes d'exploitation (OS) de fonctionner simultanément sur une même machine physique.
+**Hyperviseur ** : <outil de virtualisation qui permet à plusieurs systèmes d'exploitation (OS) de fonctionner simultanément sur une même machine physique.
 
 
 Sources
