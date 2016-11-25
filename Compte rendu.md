@@ -172,11 +172,11 @@ Donc si une image demande à être lancé avec l'option privileged il faut au pr
 Léxique
 -
 
-** KVM ** : « pour Virtual Machine Kernel-based » est une solution de virtualisation complète pour Linux sur du matériel x86 compatibles « Intel VT ou AMD-V ».  
+* KVM * : « Pour Virtual Machine Kernel-based » est une solution de virtualisation complète pour Linux sur du matériel x86 compatibles « Intel VT ou AMD-V ».  
 
 C'est un système optimisé pour la virtualisation de serveur. Pour virtualiser des systèmes de type desktop, on peut lui préférer virtualbox. KVM semble en effet plus performant en consommation de processeur mais plus lent pour l'émulation du périphérique graphique.
 
-**Hyperviseur ** : <outil de virtualisation qui permet à plusieurs systèmes d'exploitation (OS) de fonctionner simultanément sur une même machine physique.
+*Hyperviseur * : Outil de virtualisation qui permet à plusieurs systèmes d'exploitation (OS) de fonctionner simultanément sur une même machine physique.
 
 
 Sources
