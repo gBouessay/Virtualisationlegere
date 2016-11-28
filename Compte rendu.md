@@ -225,6 +225,39 @@ Quand un container est lancé avec le mot clé -privileged. Docker va lui donner
 Donc si une image demande à être lancé avec l'option privileged il faut au préalable se demander pourquoi elle a besoin de ce droit et ce dont elle a besoin. Ainsi la bonne pratique est de lui accorder que les droits dont elle a besoin pour fonctionner et non pas tous comme il l'est demandé.
 
 
+####4-Installation de docker
+
+Il existe deux solutions pour installer docker. Premièrement le télecharger depuis les dépôts officiels. La seconde solution c'est d'utiliser le script d'installation fourni par Docker. Pour le télécharger il suffit de suivre les commandes suivantes: 
+
+
+	'$ wget https://get.docker.com'
+	'$ mv index.html script.sh'
+	'$ chmod +x script.sh'
+	'$ ./script.sh'
+
+
+Et voilà, docker est maintenant installer sur votre machine.
+
+
+####5-Configuration
+
+Si vous voulez vous éviter de taper *sudo* devant chaque commande Docker, ajoutez votre utilisateur au groupe Docker:
+
+
+	'$ sudo addgroup [utilisateur] docker'
+
+Il faut maintenant lancer le service Docker:
+
+
+	'$ sudo service docker start'
+
+Et vérifier s'il fonctionne correctement: 
+
+
+	'$ docker run hello-world'
+
+A la première exécution, Docker ne doit pas trouver l'image de l'application hello-word en local. Il va alors tenter de télécharger la dernière version. En cas de réussite, il exécute l'application qui affiche une simple page d'explication sur la sortie standard et s'arrête.
+
 Léxique
 -
 
