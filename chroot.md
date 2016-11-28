@@ -21,10 +21,18 @@ Gràce à l’utilitaire CHROOT, on peut modifier cette racine (puisqu’elle n�
 
 ####A quoi sert un Chroot ?
 
+La commande chroot permet de changer le répertoire racine d'un processus. Le processus est donc isolé, au niveau de l'accessibilité du système de fichier. Il ne peut accéder à l'ensemble du système de fichier.
+Cet outil fait donc partie de la famille des isolateurs.
+
 ####Cadre d’usage :
 
-Beaucoup d’utilisation différentes possibles :
+Cette opération peut être utilisée dans divers cas :
+- prison : empêche un utilisateur ou un programme de remonter dans l'arborescence et le cantonne à une nouvelle arborescence restreinte.
+
 Ex : permet de lancer des processus critiques dans un dossier isolé afin de rendre moins facile (pas impossible) la compromission du reste du système de fichiers dans le cas de faille d’une faille de sécurité. On appelle ça « la mise en prison du logiciel (jail) ».
+
+- changement d'environnement : permet de basculer vers un autre système linux (autre architecture, autre distribution, autre version). Nous détaillerons ici cette technique.
+
 Ex : permet aussi, de créer plusieurs environnements qui obéissent à des règles différentes du reste du système. Par exemple, faire tourner un linux 32bits au sein d’un linux 64bits. La seule limitation est que le kernel (permet la communication entre eux des différents logiciels, matériels et composants) soit compatible avec les deux environnements.
 
 Même si ces exemples semble similaire à de la virtualisation, il ne faut pas confondre les deux principes : le changement de racine n’émule (chercher à imiter) rien. Ce n’est que l’exploitation d’une priorité des processus unix.
@@ -32,9 +40,40 @@ Chaque processus chrooté accède donc au même matériel que les processus "nor
 ils tournent au sein du même kernel et partagent le même espace mémoire. Plus flagrant, les processus lancés dans le cadre d'un changement de racine sont parfaitement visible si l'on exécute une commande ps à partir d'un shell ‘‘normal’’ (shell : programme qui gère les invite de commande).
 La force du changement de racine est donc d’être un principe limité mais simple, et qui ne souffre d'aucun problème de performance accompagnant généralement la virtualisation.
 
-####A voir aussi :
+####Exemple utilisation chroot pour changer de système :
+A réaliser en super utilisateur pour ne pas à écrire au début de chaque ligne de commande le 'sudo'.
+Ici le chroot sera utilisé après le démarrage sur un système sain pour se retrouver dans l'environnement endommagé et faire des modifications directement dans ce dernier environnement.
 
-SQUASHFS, commande chroot, 
+1. Démarrez sur un système sain. Par exemple : un live CD
+
+2. Montez la partition racine du système endommagé :
+	sudo mkdir /media/system
+	sudo mount </dev/partition> /media/system
+par exemple, si sda2 est la partition racine, la commande sera : "sudo mount /dev/sda2 /media/system"
+
+3. Préparez les dossiers spéciaux /proc et /dev :
+	sudo mount --bind /dev /media/system/dev
+	sudo mount -t proc /proc /media/system/proc
+
+4. Dans certains cas (réparation de Grub avec update-grub par exemple) vous devrez lier le /run :
+	sudo mount --bind /run  /media/system/run
+
+Note : Vous pourriez aussi avoir besoin de monter /sys :
+	sudo mount -t sysfs /sys /media/system/sys
+
+1. Pour démarrer la connexion internet:
+	net-setup eth0 
+
+2. Copiez le /etc/resolv.conf pour la connexion internet (à faire seulement si votre connexion internet ne marche pas directement sans rien faire dans l'environnement chrooté) :
+	sudo cp /etc/resolv.conf /media/system/etc/resolv.conf
+
+3. Changez d'environnement :
+	sudo chroot /media/system
+
+4. En cas d'erreur à propos de "/bin/zsh" remplacer cette commande par
+	sudo chroot /media/system /bin/bash 
+
+Maintenant vous êtes sur l'installation endommagée et vous pouvez travailler dessus pour y corriger les problèmes.
 
 *Lexique :*
 **Systèmes de fichiers *nix :**
@@ -48,8 +87,8 @@ Un noyau de système d'exploitation, ou simplement noyau, ou kernel (anglais), e
 Cela signifie File Transfer Protocol (Protocole de transfert de fichier). Il s'agit d'un moyen codifié d'échanger des fichiers entre plusieurs ordinateurs.
 
 *Sources :*
-https://fr.wikipedia.org/wiki/Chroot
-http://artisan.karma-lab.net/tag/chroot
-https://doc.ubuntu-fr.org/systeme_de_fichiers
-https://fr.wikipedia.org/wiki/Noyau_de_syst%C3%A8me_d'exploitation
-
+<https://fr.wikipedia.org/wiki/Chroot>
+<http://artisan.karma-lab.net/tag/chroot>
+<https://doc.ubuntu-fr.org/systeme_de_fichiers>
+<http://doc.fedora-fr.org/wiki/Virtualisation#Les_techniques_de_la_virtualisation>
+<https://fr.wikipedia.org/wiki/Noyau_de_syst%C3%A8me_d'exploitation>
