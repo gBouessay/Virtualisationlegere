@@ -5,7 +5,7 @@ Date de présentation : 02/12/16
 
 Projet sur virtualisation légère:
 
-Mots clefs :
+Définition :
 ============
 Le chroot : (change root) est une commande des systèmes d'exploitation UNIX permettant de changer le répertoire racine d'un processus de la machine hôte.
 
@@ -15,9 +15,11 @@ Le changement de racine est un aspect des Unix offrant une alternative très int
 
 La base :
 =========
-système de fichiers *nix → construction autour d’une racine (le /) sur laquelle les partitions sont ensuite « montées » se qui forme l’espace de fichier accessible.
+Le système de fichiers *nix est basé sur une construction autour d’une racine (le /) sur laquelle les partitions sont ensuite « montées » se qui forme l’espace de fichier accessible.
 Cette racine est alors la référence pour tous les chemins absolus menant aux fichiers.
-Gràce à l’utilitaire CHROOT, on peut modifier cette racine (puisqu’elle n’est en faite qu’un paramètre du processus). Pour quoi faire ? Pour faire croire à ce processus que le dossier que l’on veut devienne la racine et donc l’origine de tous les chemins absolus.
+Gràce à l’utilitaire CHROOT, on peut modifier cette racine (puisqu’elle n’est en faite qu’un paramètre du processus). Pour quoi faire ? Pour faire croire à ce processus que le dossier que l’on veut, devienne la racine et donc l’origine de tous les chemins absolus.
+
+####A quoi sert un Chroot ?
 
 Cadre d’usage :
 ===============
@@ -29,8 +31,6 @@ Même si ces exemples semble similaire à de la virtualisation, il ne faut pas c
 Chaque processus chrooté accède donc au même matériel que les processus "normaux". De même 
 ils tournent au sein du même kernel et partagent le même espace mémoire. Plus flagrant, les processus lancés dans le cadre d'un changement de racine sont parfaitement visible si l'on exécute une commande ps à partir d'un shell ‘‘normal’’ (shell : programme qui gère les invite de commande).
 La force du changement de racine est donc d’être un principe limité mais simple, et qui ne souffre d'aucun problème de performance accompagnant généralement la virtualisation.
-
-####A quoi sert un Chroot ?
 
 A voir aussi :
 ==============
@@ -46,9 +46,6 @@ Un noyau de système d'exploitation, ou simplement noyau, ou kernel (anglais), e
 
 **FTP:**
 Cela signifie File Transfer Protocol (Protocole de transfert de fichier). Il s'agit d'un moyen codifié d'échanger des fichiers entre plusieurs ordinateurs.
-
-![Virtualisation légère]( lienversimage  "légère")
-*virtualisation légère*  
 
 *Sources :*
 https://fr.wikipedia.org/wiki/Chroot
