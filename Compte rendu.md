@@ -13,6 +13,11 @@ Définition: La virtualisation consiste à faire fonctionner un ou plusieurs sys
 
 Ces ordinateurs virtuels sont appelés Environment. La virtualisation de systèmes d'exploitation est une technique consistant à faire fonctionner en même temps, sur un seul ordinateur, plusieurs systèmes d'exploitation comme s'ils fonctionnaient sur des ordinateurs distincts.
 
+*Pour illustrer cette explication voici un schéma*  
+
+![Virtualisation légère](http://images.google.fr/imgres?imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2Ff%2Ffa%2FDiagramme_ArchiHyperviseur.png%2F250px-Diagramme_ArchiHyperviseur.png&imgrefurl=https%3A%2F%2Ffr.wikipedia.org%2Fwiki%2FVirtualisation&h=171&w=250&tbnid=WORgQW8HqgD8oM%3A&vet=1&docid=h_o5vLj5X-lYVM&ei=_Lk8WPD7BYWla8zfkIgB&tbm=isch&client=ubuntu&iact=rc&uact=3&dur=4628&page=1&start=21&ndsp=21&ved=0ahUKEwjw6ZvnyczQAhWF0hoKHcwvBBEQMwg4KBkwGQ&bih=925&biw=928 "légère")
+*virtualisation légère*  
+
 ####Pourquoi utiliser la virtualisation ?
 
 La virtualisation de systèmes d'exploitation a plusieurs intérêts :
@@ -33,18 +38,14 @@ Notre sujet traite uniquement sur la dernière de celle-ci, l'Environnement virt
 La virtualisation d'un système est une méthode de virtualisation de serveurs dans laquelle le noyau d'un système d'exploitation permet l'existence de multiples instances d'espaces utilisateur isolées au lieu d'une seule. Ces instances, parfois appelées conteneurs, conteneurs logiciels, moteurs de virtualisation ou encore prison (dans le cas de l'utilisation de chroot) peuvent ressembler à un vrai serveur du point de vue de l'utilisateurs et de ses propiétaires.
 Sur le système d'exploitation Unix-like, cette technologie peut être considérée comme une mise en œuvre avancée du mécanisme chroot standard. En plus des mécanismes d'isolement, le noyau fournit souvent des fonctionnalités de gestion des ressources pour limiter l'impact des activités d'un conteneur sur d'autres conteneurs.
 
-
 ###B)Pourquoi la virtualisation légère#
-
 
 ***Les Avantages*** 
 
-
-  
 La virtualisation légère comporte plusieurs avantages, un des premiers, et la principale différence est la virtualisation du système d'exploitation.  
 La virtualisation lourde virtualise le système d'exploitation (l'OS) tandis que la virtualisation légère ne fonctionne qu'en système de conteneur, qui ne contienne qu'au maximum que les applications/librairie.  
   
-*Pour illustrer c'est propos voici deux images*  
+*Pour illustrer ces propos voici deux images*  
 
 ![Virtualisation légère](http://blog.nicolargo.com/wp-content/uploads/2014/05/S%C3%A9lection_180.png "légère")
 *virtualisation légère*  
@@ -54,20 +55,16 @@ La virtualisation lourde virtualise le système d'exploitation (l'OS) tandis que
   
 Le système hôte est ainsi géré directement par Docker.  
 
-
 ####Principe et ressource  
 
 La virtualisation traditionnelle (dite lourde) permet via un hyperviseur, de simuler une ou plusieurs machine physique sous forme de machine virtuelle (VM). C'est VM intègre lui-même un OS sur laquelle les applications qu'elles contiennent sont exécuté.  
 À l'inverse un conteneur fait directement appel à l'OS de sa machine hôte pour réaliser ses appels système et exécuter seulement les applications.  
 Le rôle de l'hyperviseur est alors assuré par un moteur de conteneurisation, tel que Docker, qui s'installe par-dessus le système d'exploitation hôte.  
-  
-  
 
 Comme la virtualisation légère ne virtualisant pas le système d'exploitation, ceci permet de lancer les conteneurs de manière très rapide car il n'y a pas de phase de démarrage ni d'initialisation de cette couche.  
 Le temps de lancement d'un conteneur est alors égal au temps de lancement des applications qu'il contient.  
 Grâce à ceci la taille d'un conteneur est relativement petite.
 Un Pc n'a pas réellement de limite de conteneur qui peut tourner. la limite proviendra de l'occupation mémoire/cpu/réseau de nos applications.  
-
 
 ####La portabilité  
 
@@ -79,22 +76,14 @@ Un serveur donné accueillera de 10 à 100 fois plus d'instances de conteneurs q
 La portabilité de ces containers peut se faire grâce à des clouds, seulement il faudra que les clouds en présence soient optimisés pour les accueillir. Amazone Web Services, Microsoft Azure, google Compute, OVH ou encore DigitalOcean font partie des clouds pouvant recevoir ces containers.  
 Cela permet de basculer les containers d'un environnement de développement ou de test à un environnement de production facilement, ce qui n'est pas le cas des VM.  
 
-  
-
 ####Pour les développeurs  
-  
+
 Un autre avantage est pour les développeurs, du fait de la disparition de l'OS intermédiaire des VM, ils bénéficieront aussi mécaniquement d'une pile applicative plus proche de celle de l'environnement de production. Docker pourra permettre dans le même temps de concevoir une architecture de test plus agile, chaque container de test pouvant intégrer une brique de l'application.  
-  
+
 IBM a réalisé un comparatif de performance entre Docker et KVM((Kernel-based Virtual Machine) qui est un hyperviseur.  
 Il en conclut que Docker égale ou excède les performances de cette technique de virtualisation open source - et ce dans tous les cas testés dans le cadre du comparatif. Pour Big Blue, la performance des containers Docker se rapproche même de celle des serveurs machines nus. En éliminant la couche de virtualisation, consommatrice en ressources machines, Docker permettrait de réduire la consommation de RAM de 4 à 30 fois. Ce qui contribuait à optimiser l'utilisation des serveurs, et par conséquent la consommation d'énergie - qui reste l'un des principaux postes de dépense des data centers.  
 
-
-
-II-Pourquoi la virtualisation légère
--
-
-
-III-Chroot
+II-Chroot
 -
 
 ####Définition :
@@ -125,7 +114,7 @@ ils tournent au sein du même kernel et partagent le même espace mémoire. Plus
 La force du changement de racine est donc d’être un principe limité mais simple, et qui ne souffre d'aucun problème de performance accompagnant généralement la virtualisation.
 
 
-IV-Docker
+III-Docker
 -
 
 
@@ -276,6 +265,13 @@ Sources
 <https://w3blog.fr/2016/02/23/docker-securite-10-bonnes-pratiques/>
 <<<<<<< HEAD
 =======
+
+<https://doc.ubuntu-fr.org/chroot>
+<http://www.tuto-it.fr/virtualisation.php>
+<https://fr.wikipedia.org/wiki/Virtualisation>
+<http://www.systancia.com/fr/pourquoi-virtualiser>
+<https://en.wikipedia.org/wiki/Operating_system-level_virtualization>
+<https://doc.ubuntu-fr.org/virtualisation#virtualisation_completeun_choix_privilegie_chez_le_particulier>
 
 <http://blog.nicolargo.com/2014/06/virtualisation-legere-docker.html>
 <http://www.journaldunet.com/solutions/cloud-computing/1146290-cloud-pourquoi-docker-peut-tout-changer/>  
