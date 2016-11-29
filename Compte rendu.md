@@ -331,7 +331,6 @@ Lexique
 -
 
 * KVM  : « Pour Virtual Machine Kernel-based » est une solution de virtualisation complète pour Linux sur du matériel x86 compatibles « Intel VT ou AMD-V ».  
-
 C'est un système optimisé pour la virtualisation de serveur. Pour virtualiser des systèmes de type desktop, on peut lui préférer virtualbox. KVM semble en effet plus performant en consommation de processeur mais plus lent pour l'émulation du périphérique graphique.
 
 * Hyperviseur  : Outil de virtualisation qui permet à plusieurs systèmes d'exploitation (OS) de fonctionner simultanément sur une même machine physique.
@@ -350,19 +349,34 @@ Sources
 -
 
 <https://www.guillaume-leduc.fr/>
+
 <https://w3blog.fr/2016/02/23/docker-securite-10-bonnes-pratiques/>
+
 <https://doc.ubuntu-fr.org/chroot>
+
 <http://artisan.karma-lab.net/tag/chroot>
+
 <http://www.tuto-it.fr/virtualisation.php>
+
 <https://fr.wikipedia.org/wiki/Virtualisation>
+
 <https://doc.ubuntu-fr.org/systeme_de_fichiers>
+
 <http://doc.fedora-fr.org/wiki/Virtualisation#Les_techniques_de_la_virtualisation>
+
 <http://www.systancia.com/fr/pourquoi-virtualiser>
+
 <https://fr.wikipedia.org/wiki/Noyau_de_syst%C3%A8me_d'exploitation>
+
 <https://en.wikipedia.org/wiki/Operating_system-level_virtualization>
+
 <https://doc.ubuntu-fr.org/virtualisation#virtualisation_completeun_choix_privilegie_chez_le_particulier>
+
 <http://blog.nicolargo.com/2014/06/virtualisation-legere-docker.html>
+
 <http://www.journaldunet.com/solutions/cloud-computing/1146290-cloud-pourquoi-docker-peut-tout-changer/>  
+
 <https://wooster.checkmy.ws/2014/06/virtualisation-open-source/>  
+
 <https://www.supinfo.com/articles/single/3568-conteneurs-docker-lxc>
 
