@@ -155,50 +155,91 @@ ils tournent au sein du même kernel et partagent le même espace mémoire. Plus
 La force du changement de racine est donc d’être un principe limité mais simple, et qui ne souffre d'aucun problème de performance accompagnant généralement la virtualisation.
 
 ####Exemple utilisation chroot pour changer de système :
-
 A réaliser en super utilisateur pour ne pas à écrire au début de chaque ligne de commande le 'sudo'.
-Ici le chroot sera utilisé après le démarrage sur un système sain pour se retrouver dans l'environnement endommagé et faire des modifications directement dans ce dernier environnement.
 
-1. Démarrez sur un système sain. Par exemple : un live CD
+#Installation
 
-2. Montez la partition racine du système endommagé :
+Chroot est installé par défaut dans les distributions courantes. Si jamais ce n'était pas le cas, vous pouvez le trouver normalement dans le paquet coreutils (au moins pour les distributions Debian et Mandrake).
 
-	`sudo mkdir /media/system`
+	find . / | grep chroot
 
-	`sudo mount </dev/partition> /media/system`
+	whereis chroot
 
-par exemple, si sda2 est la partition racine, la commande sera : "sudo mount /dev/sda2 /media/system"
+#Préparation du compte
 
-3. Préparez les dossiers spéciaux /proc et /dev :
+Si vous ne l'avez pas déjà créée, il faut établir les paramêtres du dit compte.
+Voici un exemple :
 
-	`sudo mount --bind /dev /media/system/dev`
+	$ useradd -u 1001 -g 1001 -d /home/chroot/toto -s /bin/chroot -c exemple toto
 
-	`sudo mount -t proc /proc /media/system/proc`
+Notre utilisateur toto se voit attribuer les numéros 1001 d'utilisateur et 1001 de groupe et sera logé dans le répertoire /home/chroot/toto. Le shell qui lui permettra de se connecter est un petit script qui autorise l'emprisonnement de l'utilisateur à son arrivée.
 
-4. Dans certains cas (réparation de Grub avec update-grub par exemple) vous devrez lier le /run :
-	`sudo mount --bind /run  /media/system/run`
+De manière simple, ce script peut ainsi être écrit :
 
-Note : Vous pourriez aussi avoir besoin de monter /sys :
+	#!/bin/bash
+	exec -c /usr/sbin/chroot /home/chroot/$USER /bin/bash
 
-	`sudo mount -t sysfs /sys /media/system/sys`
+Si nous utilisons la ligne de commande qui constitue ce script, dans une phase de test, une erreur va nous être retournée :
 
-1. Pour démarrer la connexion internet:
+	$/usr/sbin/chroot /home/chroot/toto /bin/bash
+	/usr/sbin/chroot: /bin/bash: No such file or directory
 
-	`net-setup eth0`
+Que se passe t'il donc ? La réponse est simple. L'invocation du shell, ici /bin/bash, se fait après le déplacement de la racine. Il cherche donc au pied de cette nouvelle racine un répertoire bin contenant l'utilitaire bash. Cependant, puisque nous n'avons jusqu'à lors inséré aucun outil, le système refuse la commande.
 
-2. Copiez le /etc/resolv.conf pour la connexion internet (à faire seulement si votre connexion internet ne marche pas directement sans rien faire dans l'environnement chrooté) :
+Que faire dans ce cas ? La réponse est assez simple, nous allons construire l'environnement nécessaire à l'utilisation de la prison. Cela signifie que chaque commande que vous désirerez utiliser dans cet espace restreint doit y être copié, dans le répertoire aproprié.
 
-	`sudo cp /etc/resolv.conf /media/system/etc/resolv.conf`
+Avant de chercher à automatiser la tâche, commençons par le bash de tout à l'heure :
 
-3. Changez d'environnement :
+	$ cd /home/chroot/toto
+	$ mkdir bin
+	$ cp /bin/bash bin/bash
 
-	`sudo chroot /media/system`
+L'utilitaire est à présent copié.
 
-4. En cas d'erreur à propos de "/bin/zsh" remplacer cette commande par:
+Il faut également fournir les librairies nécessaires à son utilisation. Nous utiliserons l'outil ldd pour déterminer les fichiers nécessaires.
 
-	`sudo chroot /media/system /bin/bash`
+	$ ldd /bin/bash
+	libncurses.so.5 => /lib/libncurses.so.5 (0x4001e000)
+	libdl.so.2 => /lib/libdl.so.2 (0x4005a000)
+	libc.so.6 => /lib/libc.so.6 (0x4005d000)
+	/lib/ld-linux.so.2 => /lib/ld-linux.so.2 (0x40000000)
 
-Maintenant vous êtes sur l'installation endommagée et vous pouvez travailler dessus pour y corriger les problèmes.
+Comme dit, copions les librairies indispensable au fonctionnement :
+
+	$ mkdir lib
+	$ cp /lib/libncurses.so.5 lib
+	$ cp /lib/libdl.so.2 lib
+	$ cp /lib/ld-linux.so.2 lib
+
+	Voilà, il ne reste plus qu'à tester en s'identifiant sous l'utilisateur toto :
+	toto@127.0.0.1's password:
+	****************************************************************
+	* Bienvenue dans l'environnement restreint qui vous est imparti *
+	****************************************************************
+	bash-2.05b$ pwd
+	/
+	bash-2.05b$
+
+Notre premier travail, créer un espace restreint pour un utilisateur, est achevé.
+La tâche ne s'arrête pas là. Tout comme nous avons copié le shell bash, il faut de même insérer tous les utilitaires nécessaires ou vitaux tels que ls, chmod, rm, etc...
+
+Pour ne pas effectuer une tâche répétitive, il est plus intelligent de créer un script qui travaillera pour nous et qui aura le mérite d'être réutilisable :
+
+	#!/bin/bash
+
+	# On vérifie que le nom de l'utilisateur souhaité est bien passé en paramêtre
+	if [ "$#" != 1 ];
+	then
+	echo "Usage : $0 <login>"
+	exit 255;
+	fi
+
+	# Nom d'utilisateur
+	LOGIN=$1
+	# Groupe attribué à l'utilisateur
+	GROUP=chroot
+	# Répertoire par défaut des shell chrootés
+	REP=/home/chroot
 
 III-Docker
 -
