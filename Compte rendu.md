@@ -162,30 +162,40 @@ Ici le chroot sera utilisé après le démarrage sur un système sain pour se re
 1. Démarrez sur un système sain. Par exemple : un live CD
 
 2. Montez la partition racine du système endommagé :
+
 	`sudo mkdir /media/system`
+
 	`sudo mount </dev/partition> /media/system`
+
 par exemple, si sda2 est la partition racine, la commande sera : "sudo mount /dev/sda2 /media/system"
 
 3. Préparez les dossiers spéciaux /proc et /dev :
+
 	`sudo mount --bind /dev /media/system/dev`
+
 	`sudo mount -t proc /proc /media/system/proc`
 
 4. Dans certains cas (réparation de Grub avec update-grub par exemple) vous devrez lier le /run :
 	`sudo mount --bind /run  /media/system/run`
 
 Note : Vous pourriez aussi avoir besoin de monter /sys :
+
 	`sudo mount -t sysfs /sys /media/system/sys`
 
 1. Pour démarrer la connexion internet:
+
 	`net-setup eth0`
 
 2. Copiez le /etc/resolv.conf pour la connexion internet (à faire seulement si votre connexion internet ne marche pas directement sans rien faire dans l'environnement chrooté) :
+
 	`sudo cp /etc/resolv.conf /media/system/etc/resolv.conf`
 
 3. Changez d'environnement :
+
 	`sudo chroot /media/system`
 
-4. En cas d'erreur à propos de "/bin/zsh" remplacer cette commande par
+4. En cas d'erreur à propos de "/bin/zsh" remplacer cette commande par:
+
 	`sudo chroot /media/system /bin/bash`
 
 Maintenant vous êtes sur l'installation endommagée et vous pouvez travailler dessus pour y corriger les problèmes.
