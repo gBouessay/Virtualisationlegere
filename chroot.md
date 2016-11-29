@@ -56,18 +56,19 @@ Chroot est installé par défaut dans les distributions courantes. Si jamais ce 
 Si vous ne l'avez pas déjà créée, il faut établir les paramêtres du dit compte.
 Voici un exemple :
 
-	`$ useradd -u 1001 -g 1001 -d /home/chroot/toto -s /bin/chroot -c exemple toto`
+	$ useradd -u 1001 -g 1001 -d /home/chroot/toto -s /bin/chroot -c exemple toto
 
 Notre utilisateur toto se voit attribuer les numéros 1001 d'utilisateur et 1001 de groupe et sera logé dans le répertoire /home/chroot/toto. Le shell qui lui permettra de se connecter est un petit script qui autorise l'emprisonnement de l'utilisateur à son arrivée.
+
 De manière simple, ce script peut ainsi être écrit :
 
-	`#!/bin/bash`
-	`exec -c /usr/sbin/chroot /home/chroot/$USER /bin/bash`
+	#!/bin/bash
+	exec -c /usr/sbin/chroot /home/chroot/$USER /bin/bash
 
 Si nous utilisons la ligne de commande qui constitue ce script, dans une phase de test, une erreur va nous être retournée :
 
-	`$/usr/sbin/chroot /home/chroot/toto /bin/bash`
-	`/usr/sbin/chroot: /bin/bash: No such file or directory`
+	$/usr/sbin/chroot /home/chroot/toto /bin/bash
+	/usr/sbin/chroot: /bin/bash: No such file or directory
 
 Que se passe t'il donc ? La réponse est simple. L'invocation du shell, ici /bin/bash, se fait après le déplacement de la racine. Il cherche donc au pied de cette nouvelle racine un répertoire bin contenant l'utilitaire bash. Cependant, puisque nous n'avons jusqu'à lors inséré aucun outil, le système refuse la commande.
 
@@ -75,58 +76,56 @@ Que faire dans ce cas ? La réponse est assez simple, nous allons construire l'e
 
 Avant de chercher à automatiser la tâche, commençons par le bash de tout à l'heure :
 
-	`
 	$ cd /home/chroot/toto
 	$ mkdir bin
 	$ cp /bin/bash bin/bash
-	`
 
 L'utilitaire est à présent copié.
+
 Il faut également fournir les librairies nécessaires à son utilisation. Nous utiliserons l'outil ldd pour déterminer les fichiers nécessaires.
 
-	`$ ldd /bin/bash`
-	`libncurses.so.5 => /lib/libncurses.so.5 (0x4001e000)`
-	`libdl.so.2 => /lib/libdl.so.2 (0x4005a000)`
-	`libc.so.6 => /lib/libc.so.6 (0x4005d000)`
-	`/lib/ld-linux.so.2 => /lib/ld-linux.so.2 (0x40000000)`
+	$ ldd /bin/bash
+	libncurses.so.5 => /lib/libncurses.so.5 (0x4001e000)
+	libdl.so.2 => /lib/libdl.so.2 (0x4005a000)
+	libc.so.6 => /lib/libc.so.6 (0x4005d000)
+	/lib/ld-linux.so.2 => /lib/ld-linux.so.2 (0x40000000)
 
-Comme dit, copions les librairies indispensable au fonctionnement :	
+Comme dit, copions les librairies indispensable au fonctionnement :
 
-	`$ mkdir lib`
-	`$ cp /lib/libncurses.so.5 lib`
-	`$ cp /lib/libdl.so.2 lib`
-	`$ cp /lib/ld-linux.so.2 lib`
+	$ mkdir lib
+	$ cp /lib/libncurses.so.5 lib
+	$ cp /lib/libdl.so.2 lib
+	$ cp /lib/ld-linux.so.2 lib
 
 	Voilà, il ne reste plus qu'à tester en s'identifiant sous l'utilisateur toto :
-
-	`toto@127.0.0.1's password:`
-	`****************************************************************`
-	`* Bienvenue dans l'environnement restreint qui vous est imparti *`
-	`****************************************************************`
-	`bash-2.05b$ pwd`
-	`/`
-	`bash-2.05b$`
+	toto@127.0.0.1's password:
+	****************************************************************
+	* Bienvenue dans l'environnement restreint qui vous est imparti *
+	****************************************************************
+	bash-2.05b$ pwd
+	/
+	bash-2.05b$
 
 Notre premier travail, créer un espace restreint pour un utilisateur, est achevé.
 La tâche ne s'arrête pas là. Tout comme nous avons copié le shell bash, il faut de même insérer tous les utilitaires nécessaires ou vitaux tels que ls, chmod, rm, etc...
+
 Pour ne pas effectuer une tâche répétitive, il est plus intelligent de créer un script qui travaillera pour nous et qui aura le mérite d'être réutilisable :
 
-	`#!/bin/bash`
+	#!/bin/bash
 
 	# On vérifie que le nom de l'utilisateur souhaité est bien passé en paramêtre
+	if [ "$#" != 1 ];
+	then
+	echo "Usage : $0 <login>"
+	exit 255;
+	fi
 
-	`if [ "$#" != 1 ];`
-	`then`
-	`echo "Usage : $0 <login>"`
-	`exit 255;`
-	`fi`
-
-	`# Nom d'utilisateur`
-	`LOGIN=$1`
-	`# Groupe attribué à l'utilisateur`
-	`GROUP=chroot`
-	`# Répertoire par défaut des shell chrootés`
-	`REP=/home/chroot`
+	# Nom d'utilisateur
+	LOGIN=$1
+	# Groupe attribué à l'utilisateur
+	GROUP=chroot
+	# Répertoire par défaut des shell chrootés
+	REP=/home/chroot
 
 *Lexique :*
 **Systèmes de fichiers *nix :**
