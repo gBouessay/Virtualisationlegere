@@ -365,4 +365,4 @@ Sources
 <http://www.journaldunet.com/solutions/cloud-computing/1146290-cloud-pourquoi-docker-peut-tout-changer/>  
 <https://wooster.checkmy.ws/2014/06/virtualisation-open-source/>  
 <https://www.supinfo.com/articles/single/3568-conteneurs-docker-lxc>
->>>>>>> a65a86b40524d21b4b2be714dedff1ad2ab41558
+
