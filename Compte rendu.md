@@ -11,7 +11,7 @@ Tables des matières
 
 ####A)Présentation virtualisation légère
 
-####B)Pourquoi la virtualisation légère ?
+####B)Pourquoi la virtualisation légère
 
 ###II-Chroot#
 
