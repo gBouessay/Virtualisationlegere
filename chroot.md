@@ -75,9 +75,11 @@ Que faire dans ce cas ? La réponse est assez simple, nous allons construire l'e
 
 Avant de chercher à automatiser la tâche, commençons par le bash de tout à l'heure :
 
-	`$ cd /home/chroot/toto`
-	`$ mkdir bin`
-	`$ cp /bin/bash bin/bash`
+	`
+	$ cd /home/chroot/toto
+	$ mkdir bin
+	$ cp /bin/bash bin/bash
+	`
 
 L'utilitaire est à présent copié.
 Il faut également fournir les librairies nécessaires à son utilisation. Nous utiliserons l'outil ldd pour déterminer les fichiers nécessaires.
