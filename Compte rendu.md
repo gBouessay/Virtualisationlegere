@@ -15,7 +15,7 @@ Ces ordinateurs virtuels sont appelés Environment. La virtualisation de systèm
 
 *Pour illustrer cette explication voici un schéma*  
 
-[Virtualisation légère](http://images.google.fr/imgres?imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2Ff%2Ffa%2FDiagramme_ArchiHyperviseur.png%2F250px-Diagramme_ArchiHyperviseur.png&imgrefurl=https%3A%2F%2Ffr.wikipedia.org%2Fwiki%2FVirtualisation&h=171&w=250&tbnid=WORgQW8HqgD8oM%3A&vet=1&docid=h_o5vLj5X-lYVM&ei=_Lk8WPD7BYWla8zfkIgB&tbm=isch&client=ubuntu&iact=rc&uact=3&dur=4628&page=1&start=21&ndsp=21&ved=0ahUKEwjw6ZvnyczQAhWF0hoKHcwvBBEQMwg4KBkwGQ&bih=925&biw=928 "lourde") 
+![Virtualisation légère](http://images.google.fr/imgres?imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2Ff%2Ffa%2FDiagramme_ArchiHyperviseur.png%2F250px-Diagramme_ArchiHyperviseur.png&imgrefurl=https%3A%2F%2Ffr.wikipedia.org%2Fwiki%2FVirtualisation&h=171&w=250&tbnid=WORgQW8HqgD8oM%3A&vet=1&docid=h_o5vLj5X-lYVM&ei=_Lk8WPD7BYWla8zfkIgB&tbm=isch&client=ubuntu&iact=rc&uact=3&dur=4628&page=1&start=21&ndsp=21&ved=0ahUKEwjw6ZvnyczQAhWF0hoKHcwvBBEQMwg4KBkwGQ&bih=925&biw=928)
 
 ####Pourquoi utiliser la virtualisation ?
 
