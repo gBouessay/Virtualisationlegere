@@ -35,6 +35,7 @@ Tables des matières
 
 
 
+
 I-Présentation
 -
 
@@ -89,14 +90,14 @@ Le système hôte est ainsi géré directement par Docker.
 
 ####Principe et ressource  
 
-La virtualisation traditionnelle (dite lourde) permet via un hyperviseur, de simuler une ou plusieurs machine physique sous forme de machine virtuelle (VM). C'est VM intègre lui-même un OS sur laquelle les applications qu'elles contiennent sont exécuté.  
+La virtualisation traditionnelle (dite lourde) permet via un hyperviseur, de simuler une ou plusieurs machine physique sous forme de machine virtuelle (VM). C'est VM intègre lui-même un OS sur laquelle les applications qu'elles contiennent sont exécutées.  
 À l'inverse un conteneur fait directement appel à l'OS de sa machine hôte pour réaliser ses appels système et exécuter seulement les applications.  
 Le rôle de l'hyperviseur est alors assuré par un moteur de conteneurisation, tel que Docker, qui s'installe par-dessus le système d'exploitation hôte.  
 
 Comme la virtualisation légère ne virtualisant pas le système d'exploitation, ceci permet de lancer les conteneurs de manière très rapide car il n'y a pas de phase de démarrage ni d'initialisation de cette couche.  
 Le temps de lancement d'un conteneur est alors égal au temps de lancement des applications qu'il contient.  
 Grâce à ceci la taille d'un conteneur est relativement petite.
-Un Pc n'a pas réellement de limite de conteneur qui peut tourner. la limite proviendra de l'occupation mémoire/cpu/réseau de nos applications.  
+Un Ordinateur n'a pas réellement de limite de conteneur qui peut tourner. La seule limite proviendra de l'occupation mémoire/cpu/réseau de nos applications.  
 
 ####La portabilité  
 
