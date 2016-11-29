@@ -1,4 +1,4 @@
-LA VIRTUALISATION LEGERE
+LA VIRTUALISATION LÉGÈRE
 ==
 
 
@@ -43,7 +43,7 @@ I-Présentation
 
 ####Définition et description.
 
-Définition: La virtualisation consiste à faire fonctionner un ou plusieurs systèmes d'exploitation / applications comme un simple logiciel, sur un ou plusieurs ordinateurs - serveurs /système d’exploitation, au lieu de ne pouvoir en installer qu'un seul par machine.
+Définition: la virtualisation consiste à faire fonctionner un ou plusieurs systèmes d'exploitation / applications comme un simple logiciel, sur un ou plusieurs ordinateurs - serveurs /système d’exploitation, au lieu de ne pouvoir en installer qu'un seul par machine.
 
 Ces ordinateurs virtuels sont appelés Environment. La virtualisation de systèmes d'exploitation est une technique consistant à faire fonctionner en même temps, sur un seul ordinateur, plusieurs systèmes d'exploitation comme s'ils fonctionnaient sur des ordinateurs distincts.
 
@@ -65,10 +65,7 @@ Les particuliers et les PME/PMI seront généralement plus intéressés par la p
 
 ####Les solutions existantes.
 
-Virtualisation complète, l'émulation, la paravirtualisation et l'Environnement virtuel*
-Notre sujet traite uniquement sur la dernière de celle-ci, l'Environnement virtuel.
-
-La virtualisation d'un système est une méthode de virtualisation de serveurs dans laquelle le noyau d'un système d'exploitation permet l'existence de multiples instances d'espaces utilisateur isolées au lieu d'une seule. Ces instances, parfois appelées conteneurs, conteneurs logiciels, moteurs de virtualisation ou encore prison (dans le cas de l'utilisation de chroot) peuvent ressembler à un vrai serveur du point de vue de l'utilisateurs et de ses propiétaires.
+La virtualisation d'un système est une méthode de virtualisation de serveurs dans laquelle le noyau d'un système d'exploitation permet l'existence de multiples instances d'espaces utilisateurs isolées au lieu d'une seule. Ces instances, parfois appelées conteneurs, conteneurs logiciels, moteurs de virtualisation ou encore prison (dans le cas de l'utilisation de chroot) peuvent ressembler à un vrai serveur du point de vue de l'utilisateur et de ses propiétaires.
 Sur le système d'exploitation Unix-like, cette technologie peut être considérée comme une mise en œuvre avancée du mécanisme chroot standard. En plus des mécanismes d'isolement, le noyau fournit souvent des fonctionnalités de gestion des ressources pour limiter l'impact des activités d'un conteneur sur d'autres conteneurs.
 
 ###B)Pourquoi la virtualisation légère#
@@ -90,18 +87,18 @@ Le système hôte est ainsi géré directement par Docker.
 
 ####Principe et ressource  
 
-La virtualisation traditionnelle (dite lourde) permet via un hyperviseur, de simuler une ou plusieurs machine physique sous forme de machine virtuelle (VM). C'est VM intègre lui-même un OS sur laquelle les applications qu'elles contiennent sont exécutées.  
+La virtualisation traditionnelle (dite lourde) permet via un hyperviseur, de simuler une ou plusieurs machines physiques sous forme de machine virtuelle (VM). C'est VM intègre lui-même un OS sur laquelle les applications qu'elles contiennent sont exécutées.  
 À l'inverse un conteneur fait directement appel à l'OS de sa machine hôte pour réaliser ses appels système et exécuter seulement les applications.  
 Le rôle de l'hyperviseur est alors assuré par un moteur de conteneurisation, tel que Docker, qui s'installe par-dessus le système d'exploitation hôte.  
 
 Comme la virtualisation légère ne virtualisant pas le système d'exploitation, ceci permet de lancer les conteneurs de manière très rapide car il n'y a pas de phase de démarrage ni d'initialisation de cette couche.  
 Le temps de lancement d'un conteneur est alors égal au temps de lancement des applications qu'il contient.  
 Grâce à ceci la taille d'un conteneur est relativement petite.
-Un Ordinateur n'a pas réellement de limite de conteneur qui peut tourner. La seule limite proviendra de l'occupation mémoire/cpu/réseau de nos applications.  
+Un ordinateur n'a pas réellement de limite de conteneur qui peut tourner. La seule limite proviendra de l'occupation mémoire/cpu/réseau de nos applications.  
 
 ####La portabilité  
 
-Un autre avantage de la virtualisation légère est sa portabilité, grace à sa souplesse et légèreté car il n'embarque pas d'OS, il est totalement possible de concevoir un conteneur sur son Pc portable puis de le déployer sur son infrastructure de production physique ou virtuelle.  
+Un autre avantage de la virtualisation légère est sa portabilité, grace à sa souplesse et légèreté car il n'embarque pas d'OS, il est totalement possible de concevoir un conteneur sur son PC portable puis de le déployer sur son infrastructure de production physique ou virtuelle.  
 Par exemple une machine virtuelle réalisée avec la virtualisation lourde pourra peser plusieurs Go, alors qu'un container nu représentera seulement quelque Mo.
 Un serveur donné accueillera de 10 à 100 fois plus d'instances de conteneurs que d'instances d'application sur VM.  
   
@@ -123,7 +120,7 @@ II-Chroot
 
 Le chroot : (change root) est une commande des systèmes d'exploitation UNIX permettant de changer le répertoire racine d'un processus de la machine hôte.
 
-Le changement de racine est un aspect des Unix offrant une alternative très intéressante à la virtualisation. Éminemment plus léger, mais surtout plus simple à mettre en oeuvre, qu'un VirtualBox, KVM, ou même docker, le petit utilitaire chroot peut vous rendre bien des services pour emprisonner un accès FTP, pour créer une machine de développement avec des versions de librairies différentes de celle de votre système principal ou encore simplement pour tester les derniers joujous dans une version instable de debian.
+Le changement de racine est un aspect des Unix offrant une alternative très intéressante à la virtualisation. Éminemment plus léger, mais surtout plus simple à mettre en oeuvre, qu'un VirtualBox, KVM, ou même docker, le petit utilitaire chroot peut vous rendre bien des services pour emprisonner un accès FTP, pour créer une machine de développement avec des versions de librairies différentes de celle de votre système principal ou encore simplement pour tester les derniers logiciels dans une version instable de debian.
 
 ####Qu’est se qu’un Chroot ?
 
@@ -133,7 +130,7 @@ Le système de fichiers *nix est basé sur une construction autour d’une racin
 Cette racine est alors la référence pour tous les chemins absolus menant aux fichiers.
 Gràce à l’utilitaire CHROOT, on peut modifier cette racine (puisqu’elle n’est en faite qu’un paramètre du processus). Pour quoi faire ? Pour faire croire à ce processus que le dossier que l’on veut, devienne la racine et donc l’origine de tous les chemins absolus.
 
-####A quoi sert un Chroot ?
+####À quoi sert un Chroot ?
 
 La commande chroot permet de changer le répertoire racine d'un processus. Le processus est donc isolé, au niveau de l'accessibilité du système de fichier. Il ne peut accéder à l'ensemble du système de fichier.
 Cet outil fait donc partie de la famille des isolateurs.
@@ -149,15 +146,15 @@ Ex : permet de lancer des processus critiques dans un dossier isolé afin de re
 
 Ex : permet aussi, de créer plusieurs environnements qui obéissent à des règles différentes du reste du système. Par exemple, faire tourner un linux 32bits au sein d’un linux 64bits. La seule limitation est que le kernel (permet la communication entre eux des différents logiciels, matériels et composants) soit compatible avec les deux environnements.
 
-Même si ces exemples semble similaire à de la virtualisation, il ne faut pas confondre les deux principes : le changement de racine n’émule (chercher à imiter) rien. Ce n’est que l’exploitation d’une priorité des processus unix.
+Même si ces exemples semblent similaires à de la virtualisation, il ne faut pas confondre les deux principes : le changement de racine n’émule (chercher à imiter) rien. Ce n’est que l’exploitation d’une priorité des processus unix.
 Chaque processus chrooté accède donc au même matériel que les processus "normaux". De même 
-ils tournent au sein du même kernel et partagent le même espace mémoire. Plus flagrant, les processus lancés dans le cadre d'un changement de racine sont parfaitement visible si l'on exécute une commande ps à partir d'un shell ‘‘normal’’ (shell : programme qui gère les invite de commande).
+ils tournent au sein du même kernel et partagent le même espace mémoire. Plus flagrants, les processus lancés dans le cadre d'un changement de racine sont parfaitement visibles si l'on exécute une commande ps à partir d'un shell "normal" (shell : programme qui gère les invites de commande).
 La force du changement de racine est donc d’être un principe limité mais simple, et qui ne souffre d'aucun problème de performance accompagnant généralement la virtualisation.
 
 ####Exemple utilisation chroot pour changer de système :
-A réaliser en super utilisateur pour ne pas à écrire au début de chaque ligne de commande le 'sudo'.
+À réaliser en super utilisateur pour ne pas à écrire au début de chaque ligne de commande le 'sudo'.
 
-#Installation
+####Installation
 
 Chroot est installé par défaut dans les distributions courantes. Si jamais ce n'était pas le cas, vous pouvez le trouver normalement dans le paquet coreutils (au moins pour les distributions Debian et Mandrake).
 
@@ -165,7 +162,7 @@ Chroot est installé par défaut dans les distributions courantes. Si jamais ce 
 
 	whereis chroot
 
-#Préparation du compte
+####Préparation du compte
 
 Si vous ne l'avez pas déjà créée, il faut établir les paramêtres du dit compte.
 Voici un exemple :
@@ -184,7 +181,7 @@ Si nous utilisons la ligne de commande qui constitue ce script, dans une phase d
 	$/usr/sbin/chroot /home/chroot/toto /bin/bash
 	/usr/sbin/chroot: /bin/bash: No such file or directory
 
-Que se passe t'il donc ? La réponse est simple. L'invocation du shell, ici /bin/bash, se fait après le déplacement de la racine. Il cherche donc au pied de cette nouvelle racine un répertoire bin contenant l'utilitaire bash. Cependant, puisque nous n'avons jusqu'à lors inséré aucun outil, le système refuse la commande.
+Que se passe-t-il donc ? La réponse est simple. L'invocation du shell, ici /bin/bash, se fait après le déplacement de la racine. Il cherche donc au pied de cette nouvelle racine un répertoire bin contenant l'utilitaire bash. Cependant, puisque nous n'avons jusqu'à lors inséré aucun outil, le système refuse la commande.
 
 Que faire dans ce cas ? La réponse est assez simple, nous allons construire l'environnement nécessaire à l'utilisation de la prison. Cela signifie que chaque commande que vous désirerez utiliser dans cet espace restreint doit y être copié, dans le répertoire aproprié.
 
@@ -204,7 +201,7 @@ Il faut également fournir les librairies nécessaires à son utilisation. Nous 
 	libc.so.6 => /lib/libc.so.6 (0x4005d000)
 	/lib/ld-linux.so.2 => /lib/ld-linux.so.2 (0x40000000)
 
-Comme dit, copions les librairies indispensable au fonctionnement :
+Comme dit, copions les librairies indispensableS au fonctionnement :
 
 	$ mkdir lib
 	$ cp /lib/libncurses.so.5 lib
@@ -227,7 +224,7 @@ Pour ne pas effectuer une tâche répétitive, il est plus intelligent de créer
 
 	#!/bin/bash
 
-	# On vérifie que le nom de l'utilisateur souhaité est bien passé en paramêtre
+	# On vérifie que le nom de l'utilisateur souhaité est bien passé en paramètre
 	if [ "$#" != 1 ];
 	then
 	echo "Usage : $0 <login>"
@@ -247,7 +244,7 @@ III-Docker
 
 Docker est une plateforme de virtualisation par container ou conteneur en français. Qui nous permet de créer de nouvelles machines qui vont contenir uniquement une ou plusieurs applications. Ainsi pour partager votre projet il vous suffira simplement de mettre en place le conteneur créé sur une autre machine pour y avoir accès de façon parfaitement indépendante.
 
-Ainsi la virtualisation par conteneur que Docker propose permet à un système Linux de contenir un ou plusieurs processus dans un environnement indépendant de l'hôte et des conteneurs entres eux. A l'inverse de la virtualisation par hyperviseur de type 2 tel que VMware ou VirtualBox qui pour chaque hôte invité va virtualiser un environnement complet.
+Ainsi la virtualisation par conteneur que Docker propose permet à un système Linux de contenir un ou plusieurs processus dans un environnement indépendant de l'hôte et des conteneurs entres eux. À l'inverse de la virtualisation par hyperviseur de type 2 tel que VMware ou VirtualBox qui pour chaque hôte invité va virtualiser un environnement complet.
 
 ###A)Container#
 
@@ -256,7 +253,7 @@ Un container est une instance active d'une image. On lance un container afin d'y
 
 	`docker run mariabd`
 
-Dans le cas précis on demande à Docker de lancer un container à partir de l'image de mariadb. Ici docker va donc chercher l'image mariadb sur l'hôte ou alors la télécharger automaniquement si elle n'y est pas présente. 
+Dans le cas précis on demande à Docker de lancer un container à partir de l'image de mariadb. Ici docker va donc chercher l'image mariadb sur l'hôte ou alors la télécharger automatiquement si elle n'y est pas présente. 
 
 
 On peut aussi ajouter des options à notre commande run afin d'accéder à l'intérieur du container :
@@ -266,7 +263,7 @@ On peut aussi ajouter des options à notre commande run afin d'accéder à l'int
 Ainsi notre container est lancé et nous nous retrouvons comme connecté à l'intérieur de notre container.
 
 
-On peut voir la liste des conteneurs lancé via la commande :
+On peut voir la liste des conteneurs lancés via la commande :
 
 	`docker ps`
 
@@ -275,10 +272,10 @@ l'id de notre container
 l'image de notre container 
 ou encore depuis combien de temps il a été créer
 
-Si on ajoute l'option -a a notre commande, elle nous permet de voir tous les conteneurs y compris ceux arrêtés.
+Si on ajoute l'option -a à notre commande, elle nous permet de voir tous les conteneurs y compris ceux arrêtés.
 
 
-Pour le moment on peut créer des bases de données dans notre container mariadb cependant lorsqu'on le stop et qu'on le redémarre les données qu'on avait ajouté ne sont plus présente à l'intérieur de celui-ci.
+Pour le moment on peut créer des bases de données dans notre container mariadb cependant lorsqu'on le stop et qu'on le redémarre les données qu'on avait ajoutées ne sont plus présente à l'intérieur de celui-ci.
 
 
 ###B)Volumes #
@@ -287,27 +284,27 @@ Pour le moment on peut créer des bases de données dans notre container mariadb
 Les volumes sont des dossiers qui permettent le partage de données entre un ou plusieurs conteneurs ainsi que la persistance de celles-ci.
 
 
-Les volumes sont initialisés à la création du container. Si l'image de base contient des données au point de montage spécifié, celles-ci sont copiés dans le volume lors de son initialisation.
+Les volumes sont initialisés à la création du container. Si l'image de base contient des données au point de montage spécifié, celles-ci sont copiées dans le volume lors de son initialisation.
 Les volumes de données peuvent être partagés entre plusieurs conteneurs.
 Les changements apportés aux données du volume sont pris en compte instantanément.
 Les données restent stockées sur l'hôte même si le container vient à être supprimé ou relancé.
 
 
-La gestion des volumes se fait avec l'option -v lors de l'éxécution des commandes : docker run et docker create. 
+La gestion des volumes se fait avec l'option -v lors de l'exécution des commandes : docker run et docker create. 
 
 	`docker run --name mariadb --volume /var/lib/docker/mysql:/var/lib/mysql -d mariadb`
 
 On va créer ici le volume /var/lib/mysql dans le container où il sera accessible par défaut en lecture et écriture.
 De plus via cette commande on décide où est stocké l'emplacement du volume sur l'hôte ici : /var/lib/docker/mysql
 
-Ainsi dans notre docker mariadb on aura accès à toutes les bases de données stocké sur notre hôte dans le dossier /var/lib/docker/mysql et si on modifie ses données via sur le container elles seront modifié sur notre hôte.
+Ainsi dans notre docker mariadb on aura accès à toutes les bases de données stockées sur notre hôte dans le dossier /var/lib/docker/mysql et si on modifie ses données via sur le container elles seront modifiées sur notre hôte.
 
-Celà nous permet donc d'arrêter/supprimer nos conteneurs mariadb tant que nous continuerons de mapper nos volumes nos données persisteront dans nos conteneurs.
+Cela nous permet donc d'arrêter/supprimer nos conteneurs mariadb tant que nous continuerons de mapper nos volumes nos données persisteront dans nos conteneurs.
 
 
 On peut aussi monter des nouveaux conteneurs qui dépendent du volume d'autres conteneurs déjà existant.
 
-Par exemple si on veut créer un autre container mariadb-bis en exécutant l'option --volumes-from mariabd on va monter les volumes de notre conteneurs existant mariadb dans notre container mariadb-bis
+Par exemple si on veut créer un autre container mariadb-bis en exécutant l'option --volumes-from mariabd on va monter les volumes de notre conteneur existant mariadb dans notre container mariadb-bis
 
 
 ###C)Sécurité#
@@ -315,13 +312,13 @@ Par exemple si on veut créer un autre container mariadb-bis en exécutant l'opt
 ####1-Créer une partition séparée pour docker
 
 L'ensemble des données de docker sont stockées dans /var/lib/docker. C'est le répertoire par défaut que docker va utiliser pour stocker les images et les conteneurs.
-Le problème est que ce répertoire est situé à a racine / et donc si Docker remplit ce répertoire, le répertoire racine le sera aussi. Ce qui rendra le système hôte inutilisable.
+Le problème est que ce répertoire est situé à la racine / et donc si Docker remplit ce répertoire, le répertoire racine le sera aussi. Ce qui rendra le système hôte inutilisable.
 
 ***Solution :*** 
-Ce problème peut aussi se rencontrer lorsqu'on récupère une image mal intentionné qui va alors remplir la mémoire de notre hôte volontairement.
+Ce problème peut aussi se rencontrer lorsqu'on récupère une image mal intentionnée qui va alors remplir la mémoire de notre hôte volontairement.
 Les solutions pour éviter ce problème sont donc de créer une partition physique séparée pour le répertoire /var/lib/docker dès l'installation de docker.
-Ou alors de créez une partion logique avec Logical Volume Manager. 
-Ces solutions vont doncdéfinir un quota de mémoire alloué à vos conteneurs et vos volumes pour docker sans endommager la partition racine de l'hôte.
+Ou alors de créer une partion logique avec Logical Volume Manager. 
+Ces solutions vont donc définir un quota de mémoire alloué à vos conteneurs et vos volumes pour docker sans endommager la partition racine de l'hôte.
 
 
 ####2-Communications entre les conteneurs
@@ -335,7 +332,7 @@ Interdir le comportement par défaut. Ainsi seul les conteneurs liés entre eux 
 
 ####3-Ne pas utiliser privileged pour n'importe quel image
 
-Quand un container est lancé avec le mot clé -privileged. Docker va lui donner tous les droits, y compris celui de lancer de nouveaux container sur l'hôte.
+Quand un container est lancé avec le mot clé -privileged. Docker va lui donner tous les droits, y compris celui de lancer de nouveaux containers sur l'hôte.
 
 ***Solution :***
 Donc si une image demande à être lancé avec l'option privileged il faut au préalable se demander pourquoi elle a besoin de ce droit et ce dont elle a besoin. Ainsi la bonne pratique est de lui accorder que les droits dont elle a besoin pour fonctionner et non pas tous comme il l'est demandé.
@@ -356,7 +353,7 @@ Il existe deux solutions pour installer docker. Premièrement le télecharger de
 	'$ ./script.sh'
 
 
-Et voilà, docker est maintenant installer sur votre machine.
+Et voilà, docker est maintenant installée sur votre machine.
 
 
 ###B)Configuration#

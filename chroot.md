@@ -43,7 +43,7 @@ La force du changement de racine est donc d’être un principe limité mais sim
 ####Exemple utilisation chroot pour changer de système :
 A réaliser en super utilisateur pour ne pas à écrire au début de chaque ligne de commande le 'sudo'.
 
-#Installation
+####Installation
 
 Chroot est installé par défaut dans les distributions courantes. Si jamais ce n'était pas le cas, vous pouvez le trouver normalement dans le paquet coreutils (au moins pour les distributions Debian et Mandrake).
 
@@ -51,7 +51,7 @@ Chroot est installé par défaut dans les distributions courantes. Si jamais ce 
 
 	whereis chroot
 
-#Préparation du compte
+####Préparation du compte
 
 Si vous ne l'avez pas déjà créée, il faut établir les paramêtres du dit compte.
 Voici un exemple :
@@ -128,6 +128,7 @@ Pour ne pas effectuer une tâche répétitive, il est plus intelligent de créer
 	REP=/home/chroot
 
 *Lexique :*
+
 **Systèmes de fichiers *nix :**
 Systèmes de fichiers : permet d’ordonner les fichier que l’on créer dans le disque dur de l’ordinateur afin de pouvoir les retrouver.
 Sur Microsoft Windows, impossible de modifier les propriétés d'un fichier (renommer, déplacer, supprimer…) lorsqu’il est ouvert par un programme ; cette restriction n'existe pas sur les systèmes de fichiers de type Unix (ext2, ext3, ReiserFS…). La raison est que sur les systèmes de fichiers *nix, les fichiers sont indexés selon un numéro, appelé inode ou i-node, et que chaque inode possède de nombreux attributs associés à lui, tels les droits d'accès, l'horodatage, la taille du fichier etc. Lors du renommage ou supression du fichier encore ouvert dans l’éditeur de texte, il garde des liens avec ce fichiers et c’est là la différence des systèmes de fichier *nix.
