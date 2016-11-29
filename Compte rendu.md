@@ -15,8 +15,7 @@ Ces ordinateurs virtuels sont appelés Environment. La virtualisation de systèm
 
 *Pour illustrer cette explication voici un schéma*  
 
-![Virtualisation légère](http://images.google.fr/imgres?imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2Ff%2Ffa%2FDiagramme_ArchiHyperviseur.png%2F250px-Diagramme_ArchiHyperviseur.png&imgrefurl=https%3A%2F%2Ffr.wikipedia.org%2Fwiki%2FVirtualisation&h=171&w=250&tbnid=WORgQW8HqgD8oM%3A&vet=1&docid=h_o5vLj5X-lYVM&ei=_Lk8WPD7BYWla8zfkIgB&tbm=isch&client=ubuntu&iact=rc&uact=3&dur=4628&page=1&start=21&ndsp=21&ved=0ahUKEwjw6ZvnyczQAhWF0hoKHcwvBBEQMwg4KBkwGQ&bih=925&biw=928 "légère")
-*virtualisation légère*  
+[Virtualisation légère](http://images.google.fr/imgres?imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2Ff%2Ffa%2FDiagramme_ArchiHyperviseur.png%2F250px-Diagramme_ArchiHyperviseur.png&imgrefurl=https%3A%2F%2Ffr.wikipedia.org%2Fwiki%2FVirtualisation&h=171&w=250&tbnid=WORgQW8HqgD8oM%3A&vet=1&docid=h_o5vLj5X-lYVM&ei=_Lk8WPD7BYWla8zfkIgB&tbm=isch&client=ubuntu&iact=rc&uact=3&dur=4628&page=1&start=21&ndsp=21&ved=0ahUKEwjw6ZvnyczQAhWF0hoKHcwvBBEQMwg4KBkwGQ&bih=925&biw=928 "lourde") 
 
 ####Pourquoi utiliser la virtualisation ?
 
@@ -129,31 +128,31 @@ Ici le chroot sera utilisé après le démarrage sur un système sain pour se re
 1. Démarrez sur un système sain. Par exemple : un live CD
 
 2. Montez la partition racine du système endommagé :
-	sudo mkdir /media/system
-	sudo mount </dev/partition> /media/system
+	'$ sudo mkdir /media/system'
+	'$ sudo mount </dev/partition> /media/system'
 par exemple, si sda2 est la partition racine, la commande sera : "sudo mount /dev/sda2 /media/system"
 
 3. Préparez les dossiers spéciaux /proc et /dev :
-	sudo mount --bind /dev /media/system/dev
-	sudo mount -t proc /proc /media/system/proc
+	'$ sudo mount --bind /dev /media/system/dev'
+	'$ sudo mount -t proc /proc /media/system/proc'
 
 4. Dans certains cas (réparation de Grub avec update-grub par exemple) vous devrez lier le /run :
-	sudo mount --bind /run  /media/system/run
+	'$ sudo mount --bind /run  /media/system/run'
 
 Note : Vous pourriez aussi avoir besoin de monter /sys :
-	sudo mount -t sysfs /sys /media/system/sys
+	'$ sudo mount -t sysfs /sys /media/system/sys'
 
 1. Pour démarrer la connexion internet:
-	net-setup eth0 
+	'$ net-setup eth0'
 
 2. Copiez le /etc/resolv.conf pour la connexion internet (à faire seulement si votre connexion internet ne marche pas directement sans rien faire dans l'environnement chrooté) :
-	sudo cp /etc/resolv.conf /media/system/etc/resolv.conf
+	'$ sudo cp /etc/resolv.conf /media/system/etc/resolv.conf
 
 3. Changez d'environnement :
-	sudo chroot /media/system
+	'$ sudo chroot /media/system'
 
 4. En cas d'erreur à propos de "/bin/zsh" remplacer cette commande par
-	sudo chroot /media/system /bin/bash 
+	'$ sudo chroot /media/system /bin/bash'
 
 Maintenant vous êtes sur l'installation endommagée et vous pouvez travailler dessus pour y corriger les problèmes.
 
