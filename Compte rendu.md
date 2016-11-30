@@ -9,7 +9,7 @@ Tables des matières
 
 ###I-Présentation
 
-####A)Présentation virtualisation légère(#yolo1)
+####A)Présentation virtualisation légère
 
 ####B)Pourquoi la virtualisation légère
 
@@ -39,7 +39,7 @@ Tables des matières
 I-Présentation
 -
 
-###A)Présentation de la virtualisation légère<a id="yolo1"></a>
+###A)Présentation de la virtualisation légère
 
 ####Définition et description.
 
@@ -246,7 +246,7 @@ Docker est une plateforme de virtualisation par container ou conteneur en franç
 
 Ainsi la virtualisation par conteneur que Docker propose permet à un système Linux de contenir un ou plusieurs processus dans un environnement indépendant de l'hôte et des conteneurs entres eux. À l'inverse de la virtualisation par hyperviseur de type 2 tel que VMware ou VirtualBox qui pour chaque hôte invité va virtualiser un environnement complet.
 
-###A)Container#
+###A)Container
 
 
 Un container est une instance active d'une image. On lance un container afin d'y exécuter un ou plusieurs processus et ce avec la commande run.
@@ -278,7 +278,7 @@ Si on ajoute l'option -a à notre commande, elle nous permet de voir tous les co
 Pour le moment on peut créer des bases de données dans notre container mariadb cependant lorsqu'on le stop et qu'on le redémarre les données qu'on avait ajoutées ne sont plus présente à l'intérieur de celui-ci.
 
 
-###B)Volumes #
+###B)Volumes
 
 
 Les volumes sont des dossiers qui permettent le partage de données entre un ou plusieurs conteneurs ainsi que la persistance de celles-ci.
@@ -307,7 +307,7 @@ On peut aussi monter des nouveaux conteneurs qui dépendent du volume d'autres c
 Par exemple si on veut créer un autre container mariadb-bis en exécutant l'option --volumes-from mariabd on va monter les volumes de notre conteneur existant mariadb dans notre container mariadb-bis
 
 
-###C)Sécurité#
+###C)Sécurité
 
 ####1-Créer une partition séparée pour docker
 
